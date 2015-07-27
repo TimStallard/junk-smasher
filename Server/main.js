@@ -71,7 +71,7 @@ io.on('connection', function (socket) {
   
   socket.on("register", function(data){
     data = JSON.parse(data);
-	users[data.username]] = {"socket": socket};
+	users[data.username] = {"socket": socket};
   });
 
   // when the client emits 'add user', this listens and executes
