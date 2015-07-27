@@ -1,0 +1,36 @@
+{
+  "name": "goodyear-hack",
+  "private": true,
+  "dependencies": {
+    "angular": "^1.4.1",
+    "babelify": "^6.1.2",
+    "body-parser": "^1.13.1",
+    "browserify": "^10.2.4",
+    "connect-mongo": "^0.8.1",
+    "cookie-parser": "^1.3.5",
+    "express": "^4.13.0",
+    "express-session": "^1.11.3",
+    "fs-extra": "^0.20.1",
+    "gulp": "^3.9.0",
+    "gulp-babel": "^5.1.0",
+    "gulp-sass": "^2.0.3",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-typescript": "^2.7.7",
+    "gulp-uglify": "^1.2.0",
+    "gulp-watch": "^4.2.4",
+    "hbs": "^3.1.0",
+    "method-override": "^2.3.3",
+    "mongojs": "^1.0.2",
+    "morgan": "^1.6.0",
+    "require-directory": "^2.1.1",
+    "source-map-support": "^0.3.2",
+    "typescript": "^1.5.0-beta",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.2.3"
+  },
+  "scripts": {
+    "postinstall": "gulp",
+    "start": "node server.js"
+  }
+}
