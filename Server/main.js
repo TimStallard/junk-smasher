@@ -38,7 +38,9 @@ app.get("/dynamic", (req, res) => {
 
 app.use(express.static("Build/Client"));
 
-require("./routes/test.js")(app);
+// require("./routes/test.js")(app);
+
+
 
 let server = app.listen(process.env.PORT || 3000, () => {
 	let {address: host, port} = server.address();
