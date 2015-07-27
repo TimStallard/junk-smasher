@@ -55,6 +55,8 @@ var io = require("socket.io")(server)
 var usernames = {};
 var numUsers = 0;
 
+var users = {};
+
 io.on('connection', function (socket) {
   var addedUser = false;
 
@@ -65,6 +67,11 @@ io.on('connection', function (socket) {
       username: socket.username,
       message: data
     });
+  });
+  
+  socket.on("register", function(data){
+    data = JSON.parse(data);
+	users[data.username]] = {"socket": socket};
   });
 
   // when the client emits 'add user', this listens and executes
