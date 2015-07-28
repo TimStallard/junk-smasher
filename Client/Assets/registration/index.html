@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Socket.IO Chat Example</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="login" class="startwindow">
+    <input type="text" id="username" placeholder="Username">
+    <input type="text" id="password" placeholder="Password (optional)">
+    <div id="loginregisterbutton" class="button">Go</div>
+  </div>
+  <div id="teamselection" class="startwindow" style="display: none;">
+    <input type="text" id="teamname" placeholder="Team Name">
+    <div id="teamfull">Sorry, that team is full, so you aren't able to join.</div>
+    <div id="teamjoin" class="button">Create Team</div>
+  </div>
+  <div id="teammembers" class="startwindow" style="display: none;">
+    <span class="title">Current team members:</span>
+    <ul>
+    </ul>
+    <div id="teamready">Your team is now full, and ready to battle!
+      <div id="teamjoin" class="button">Create Team</div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

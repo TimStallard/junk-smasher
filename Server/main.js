@@ -55,7 +55,9 @@ var io = require("socket.io")(server)
 var usernames = {};
 var numUsers = 0;
 
+//new stuff, in addition to chat parts above
 var users = {};
+var teams = {};
 
 io.on('connection', function (socket) {
   var addedUser = false;
@@ -67,11 +69,6 @@ io.on('connection', function (socket) {
       username: socket.username,
       message: data
     });
-  });
-  
-  socket.on("register", function(data){
-    data = JSON.parse(data);
-	users[data.username] = {"socket": socket};
   });
 
   // when the client emits 'add user', this listens and executes
@@ -118,6 +115,59 @@ io.on('connection', function (socket) {
         username: socket.username,
         numUsers: numUsers
       });
+    }
+  });
+
+  socket.on("register", function(data){
+  	//eventually add auth here
+  	socket.username = data.username;
+  	users[data.username] = {socket: socket};
+    socket.emit("loggedin", data.username);
+  });
+  socket.on("checkusername", function(username){
+    if(false){ //add auth check here
+      socket.emit("usernamecheckresponse", "not available");
+    }
+  });
+  socket.on("checkteamname", function(teamname){
+    console.log(teamname);
+    console.log(teams);
+    console.log(teamname in teams);
+    if(teamname in teams){
+      if(teams[teamname].users.length == 5){
+        socket.emit("teamcheckresponse", "full");
+      }
+      else{
+        socket.emit("teamcheckresponse", "exists");
+      }
+    }
+    else{
+      socket.emit("teamcheckresponse", "new");
+    }
+  });
+  socket.on("jointeam", function(teamname){
+    if(!(teamname in teams)){
+      teams[teamname] = {
+        name: teamname,
+        users: []
+      };
+    }
+    teams[teamname].users.push(socket.username);
+    console.log(teams);
+    socket.teamname = teamname;
+    socket.emit("joinedteam");
+    teams[teamname].users.forEach(function(user){
+        socket.emit("newmember", user);
+        if(user != socket.username){
+          console.log("users");
+          console.log(users);
+          users[user].socket.emit("newmember", socket.username);
+        }
+    });
+    if(teams[teamname].users.length == 5){
+      teams[teamname].users.forEach(function(user){
+        users[user].socket.emit("readytoselect");
+      })
     }
   });
 });
